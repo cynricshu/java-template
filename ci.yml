@@ -1,0 +1,17 @@
+Global:
+    tool : build_submitter
+
+Default:
+    profile : [nirvana]
+
+Profiles:
+    - profile:
+      name : nirvana
+      env : UBUNTU
+      command : sh ./build.sh
+      release : True
+    - profile:
+      name : cluster_console
+      env : UBUNTU
+      command : sh build.module.sh :cluster-console
+      release : True

@@ -1,0 +1,28 @@
+apply plugin: 'application'
+
+if (applicationDefaultJvmArgs?.empty) {
+    // Set default JVM options.
+    applicationDefaultJvmArgs = ["-Xmx2048M", "-XX:+UseG1GC",
+                                 "-XX:+PrintGCDetails", "-XX:+PrintGCDateStamps", "-Xloggc:log/gc.log", "-XX:+UseGCLogFileRotation",
+                                 "-XX:NumberOfGCLogFiles=10", "-XX:GCLogFileSize=20M"]
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
+    compile 'net.rakugakibox.spring.boot:logback-access-spring-boot-starter'
+    compile 'joda-time:joda-time'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda'
+    compile 'org.apache.commons:commons-lang3'
+    compile 'io.springfox:springfox-swagger2'
+    compile 'io.springfox:springfox-swagger-ui'
+    compile 'com.google.guava:guava'
+    compile 'io.kubernetes:client-java'
+    compile 'mysql:mysql-connector-java'
+    compile 'commons-beanutils:commons-beanutils'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+mainClassName = 'com.baidu.bce.voice.console.cluster.ClusterConsole'

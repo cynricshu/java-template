@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    initialization-mode: always
+    platform: MYSQL
+    continue-on-error: true
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/k8s_console?useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: Admin@123
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-handlers-package: com.baidu.bce.voice.console.cluster.mybatis.typehandler
