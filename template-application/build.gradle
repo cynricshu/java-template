@@ -20,7 +20,7 @@ dependencies {
     compile 'io.kubernetes:client-java'
     compile 'mysql:mysql-connector-java'
     compile 'commons-beanutils:commons-beanutils'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
