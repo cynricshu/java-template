@@ -12,6 +12,7 @@ configurations {
 
 dependencyManagement {
     dependencies {
+        dependency "org.projectlombok:lombok:1.18.2"
         dependency 'commons-beanutils:commons-beanutils:1.9.3'
         dependency 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.6'
         dependency 'com.google.guava:guava:25.0-jre'
@@ -24,5 +25,8 @@ dependencyManagement {
         dependency 'io.kubernetes:client-java:2.0.0'
         dependency 'mysql:mysql-connector-java:5.1.46'
         dependency 'net.rakugakibox.spring.boot:logback-access-spring-boot-starter:2.7.1'
+
+        dependency "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+        dependency "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
     }
 }

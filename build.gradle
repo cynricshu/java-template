@@ -33,6 +33,6 @@ allprojects {
     dependencies {
         compile 'org.projectlombok:lombok'
         testCompile 'junit:junit'
-        testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+        testCompile "org.jetbrains.kotlin:kotlin-test-junit"
     }
 }
