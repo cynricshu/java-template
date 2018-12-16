@@ -17,6 +17,7 @@ tree.txt
 
 # idea ignore
 .idea/
+out/
 *.ipr
 *.iml
 *.iws
