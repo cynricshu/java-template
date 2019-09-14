@@ -1,8 +1,8 @@
-// Copyright (C) 2018 Baidu Inc. All rights reserved.
-
 package com.cynricshu.model.response;
 
 import java.util.List;
+
+import com.cynricshu.domain.dto.CommonResponse;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 /**
  * PageResponse
  *
- * @author Shu Lingjie(shulingjie@baidu.com)
+ * @author Cynric Shu
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -1,0 +1,9 @@
+dependencies {
+    compile("com.squareup.retrofit2:retrofit")
+    compile("com.squareup.okhttp3:okhttp")
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    implementation("com.squareup.retrofit2:converter-scalars")
+    implementation("com.squareup.retrofit2:converter-jackson")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-joda")
+}

@@ -1,8 +1,8 @@
-// Copyright (C) 2018 Baidu Inc. All rights reserved.
+
 
 package com.cynricshu.service;
 
-import com.cynricshu.model.po.AppPO
+import com.cynricshu.model.dataobject.AppDo
 import com.cynricshu.mybatis.mapper.AppMapper
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,7 +14,7 @@ import java.time.Instant
 /**
  * AppMapperTest
  *
- * @author Shu Lingjie(shulingjie@baidu.com)
+ * @author Cynric Shu
  */
 @RunWith(SpringRunner::class)
 @SpringBootTest()
@@ -24,7 +24,7 @@ class AppMapperTest {
 
     @Test
     fun testCreate() {
-        val appPo = AppPO()
+        val appPo = AppDo()
         appPo.name = "firstTest"
         appPo.createTime = Instant.now()
 

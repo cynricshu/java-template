@@ -1,5 +1,3 @@
-// Copyright (C) 2018 Baidu Inc. All rights reserved.
-
 package com.cynricshu.model.request;
 
 import static com.cynricshu.model.Constant.DEFAULT_PAGE_SIZE;
@@ -9,7 +7,7 @@ import lombok.Data;
 /**
  * PageRequest
  *
- * @author Shu Lingjie(shulingjie@baidu.com)
+ * @author Cynric Shu
  */
 @Data
 public class PageRequest {

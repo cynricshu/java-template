@@ -1,5 +1,3 @@
-// Copyright (C) 2018 Baidu Inc. All rights reserved.
-
 package com.cynricshu.model.request;
 
 import static com.cynricshu.model.k8s.K8sConstant.K8S_DEFAULT_COMMANDS;
@@ -16,7 +14,7 @@ import lombok.Data;
 /**
  * AppCreateRequest
  *
- * @author Shu Lingjie(shulingjie@baidu.com)
+ * @author Cynric Shu
  */
 @Data
 public class AppCreateRequest {

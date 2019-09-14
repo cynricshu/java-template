@@ -1,5 +1,3 @@
-// Copyright (C) 2018 Baidu Inc. All rights reserved.
-
 package com.cynricshu.model.request;
 
 import java.time.Instant;
@@ -12,7 +10,7 @@ import lombok.EqualsAndHashCode;
 /**
  * AppListRequest
  *
- * @author Shu Lingjie(shulingjie@baidu.com)
+ * @author Cynric Shu
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

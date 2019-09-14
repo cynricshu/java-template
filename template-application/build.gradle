@@ -1,4 +1,5 @@
 apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
 
 if (applicationDefaultJvmArgs?.empty) {
     // Set default JVM options.
@@ -8,19 +9,12 @@ if (applicationDefaultJvmArgs?.empty) {
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
-    compile 'net.rakugakibox.spring.boot:logback-access-spring-boot-starter'
-    compile 'joda-time:joda-time'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda'
-    compile 'org.apache.commons:commons-lang3'
-    compile 'io.springfox:springfox-swagger2'
-    compile 'io.springfox:springfox-swagger-ui'
-    compile 'com.google.guava:guava'
-    compile 'io.kubernetes:client-java'
-    compile 'mysql:mysql-connector-java'
-    compile 'commons-beanutils:commons-beanutils'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation(project(":common"))
+    implementation(project(":common-web"))
+
+    implementation("org.apache.commons:commons-collections4")
+
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter")
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

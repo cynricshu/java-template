@@ -1,8 +1,8 @@
-// Copyright (C) 2018 Baidu Inc. All rights reserved.
+
 
 package com.cynricshu.service
 
-import com.cynricshu.ClusterConsole
+import com.cynricshu.Application
 import com.cynricshu.model.request.AppCreateRequest
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,10 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner
 /**
  * AppServiceTest
  *
- * @author Shu Lingjie(shulingjie@baidu.com)
+ * @author Cynric Shu
  */
 @RunWith(SpringRunner::class)
-@SpringBootTest(classes = [ClusterConsole::class])
+@SpringBootTest(classes = [Application::class])
 class AppServiceTest {
     @InjectMocks
     lateinit var appService: AppService
