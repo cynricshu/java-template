@@ -1,4 +1,6 @@
 dependencies {
+    compile(project(":common"))
+
     compile("com.squareup.retrofit2:retrofit")
     compile("com.squareup.okhttp3:okhttp")
     compile("org.springframework.boot:spring-boot-starter-web")

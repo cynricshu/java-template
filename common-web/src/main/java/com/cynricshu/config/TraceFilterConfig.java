@@ -20,18 +20,18 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.cynricshu.common.Constants;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
-public class RequestIdFilterConfig {
-    public static final String REQUEST_ID = "request-id";
-
-    @Value("${logging.requestId_urlPattern:/*}")
+public class TraceFilterConfig {
+    @Value("${logging.traceId_urlPattern:/*}")
     private String urlPattern;
 
     @Bean
-    public FilterRegistrationBean requestIdFilterRegistrationBean() {
-        RequestIdFilter filter = new RequestIdFilter();
+    public FilterRegistrationBean traceIdFilterRegistrationBean() {
+        traceIdFilter filter = new traceIdFilter();
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(filter);
         List<String> urlPatterns = Arrays.asList(urlPattern.split(";"));
@@ -40,9 +40,9 @@ public class RequestIdFilterConfig {
     }
 
     @Slf4j
-    private static class RequestIdFilter implements Filter {
+    private static class traceIdFilter implements Filter {
         private ThreadLocal<Long> threadLocalBeginTime = new ThreadLocal<>();
-        private ThreadLocal<String> threadLocalRequestId = new ThreadLocal<>();
+        private ThreadLocal<String> threadLocaltraceId = new ThreadLocal<>();
 
         @Override
         public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -53,30 +53,30 @@ public class RequestIdFilterConfig {
         }
 
         private void preHandle(HttpServletRequest request, HttpServletResponse response) {
-            String requestId = request.getHeader(REQUEST_ID);
-            if (requestId == null) {
-                requestId = UUID.randomUUID().toString();
+            String traceId = request.getHeader(Constants.TRACE_ID);
+            if (traceId == null) {
+                traceId = UUID.randomUUID().toString();
             }
-            MDC.put(REQUEST_ID, requestId);
+            MDC.put(Constants.TRACE_ID, traceId);
 
             long now = System.currentTimeMillis();
             log.info("[begin] {} {}", request.getMethod(), request.getRequestURI());
 
             threadLocalBeginTime.set(now);
-            threadLocalRequestId.set(requestId);
+            threadLocaltraceId.set(traceId);
         }
 
         private void afterCompletion(HttpServletRequest request, HttpServletResponse response) {
             long requestBeginTime = threadLocalBeginTime.get();
-            String requestId = threadLocalRequestId.get();
-            response.setHeader(REQUEST_ID, requestId);
+            String traceId = threadLocaltraceId.get();
+            response.setHeader(Constants.TRACE_ID, traceId);
 
             long timeUsed = System.currentTimeMillis() - requestBeginTime;
             log.info("[end] {} {} [status:{},time:{}ms]", request.getMethod(), request.getRequestURI(),
                     response.getStatus(), timeUsed);
 
-            MDC.remove(REQUEST_ID);
-            threadLocalRequestId.remove();
+            MDC.remove(Constants.TRACE_ID);
+            threadLocaltraceId.remove();
             threadLocalBeginTime.remove();
         }
 
