@@ -1,4 +1,4 @@
-package com.cynricshu.domain.dto;
+package com.cynricshu.common.domain.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
