@@ -1,15 +1,48 @@
 apply plugin: 'application'
 apply plugin: 'org.springframework.boot'
 
-if (applicationDefaultJvmArgs?.empty) {
-    // Set default JVM options.
-    applicationDefaultJvmArgs = ["-Xmx2048M", "-XX:+UseG1GC",
-                                 "-XX:+PrintGCDetails", "-XX:+PrintGCDateStamps", "-Xloggc:log/gc.log", "-XX:+UseGCLogFileRotation",
-                                 "-XX:NumberOfGCLogFiles=10", "-XX:GCLogFileSize=20M"]
+mainClassName = 'com.cynricshu.Application'
+version = "1.0.0"
+
+task copyStartScript(type: Copy, dependsOn: [bootStartScripts]) {
+    from project.file("build/bootScripts")
+    into project.file("output/$project.name/bin")
+}
+
+task copyLib(type: Copy, dependsOn: [bootJar]) {
+    from project.file("build/libs")
+    into project.file("output/${project.name}/")
+}
+
+task copyConf(type: Copy) {
+    from project.file("deploy")
+    into project.file("output/${project.name}/")
+}
+
+task release(type: Tar, dependsOn: [copyConf, copyLib]) {
+    delete project.file("output/${project.name}/")
+    delete project.file("output/${project.name}.tar.gz")
+
+    project.file("output/${project.name}/log").mkdirs()
+
+    project.file("output/${project.name}/revision").withOutputStream {
+        outputStream -> outputStream << getGitRevision()
+    }
+
+    archiveName = "${project.name}.tar.gz"
+    destinationDir = project.file("output")
+    compression = Compression.GZIP
+    from(project.file("output/${project.name}/"))
+    into("${project.name}")
+}
+
+static def getGitRevision() {
+    def cmd = "git rev-parse HEAD"
+    def revision = "git revision: " + cmd.execute().text.trim()
+    revision
 }
 
 dependencies {
-    implementation(project(":common"))
     implementation(project(":common-web"))
 
     implementation("org.apache.commons:commons-collections4")
@@ -19,4 +52,3 @@ dependencies {
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
-mainClassName = 'com.baidu.bce.voice.console.cluster.ClusterConsole'

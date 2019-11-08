@@ -2,7 +2,7 @@ package com.cynricshu.model.response;
 
 import java.util.List;
 
-import com.cynricshu.domain.dto.CommonResponse;
+import com.cynricshu.common.domain.dto.CommonResponse;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
