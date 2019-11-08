@@ -4,6 +4,7 @@ dependencies {
     compile("com.squareup.retrofit2:retrofit")
     compile("com.squareup.okhttp3:okhttp")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-websocket")
 
     implementation("com.squareup.retrofit2:converter-scalars")
     implementation("com.squareup.retrofit2:converter-jackson")
