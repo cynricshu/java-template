@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * HolidayConfig
  *
- * @Author Xia Shuai(xiashuai01@baidu.com)
+ * @Author Xia Shuai()
  * @Create 2019/9/4 7:25 PM
  */
 @Data

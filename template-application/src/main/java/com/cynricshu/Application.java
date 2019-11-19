@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 /**
  * ClusterConsole
  *
- * @author Xiong Chao(xiongchao@baidu.com)
  */
 @SpringBootApplication(scanBasePackageClasses = Application.class, exclude = ErrorMvcAutoConfiguration.class)
 public class Application {

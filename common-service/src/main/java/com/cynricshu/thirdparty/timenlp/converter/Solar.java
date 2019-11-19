@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * Solar
  *
- * @Author Xia Shuai(xiashuai01@baidu.com)
+ * @Author Xia Shuai()
  * @Create 2019/9/4 6:35 PM
  */
 @Data

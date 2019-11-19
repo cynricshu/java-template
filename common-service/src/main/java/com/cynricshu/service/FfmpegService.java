@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * FfmpegService
  *
- * @author Zhai Yao(zhaiyao@baidu.com)
  */
 @Slf4j
 @Service
