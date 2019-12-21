@@ -76,7 +76,9 @@ public class WechatService {
                                 "failed to get file from wechat server, unexpected errcode " + wechatErrBody.errcode);
                     }
                 } else {
-                    // 如果 content-type 既不是音频，又不是 json，重试也没用，直接抛异常
+                    // 如果 content-type 既不是音频，又不是 json，重试也没用，直接打log抛异常
+                    log.error("failed to get file from wechat server, unexpected response: {}",
+                            response.body().string());
                     throw new ThirdPartyException(
                             "failed to get file from wechat server, unexpected content-type " + contentType);
                 }
