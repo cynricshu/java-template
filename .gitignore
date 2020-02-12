@@ -3,7 +3,10 @@ target/
 output/
 build/
 .gradle/
-# *.jar
+
+*~
+*.class
+*.jar
 *.war
 *.zip
 *.tar
@@ -33,3 +36,5 @@ out/
 .DS_Store
 Thumbs.db
 
+# vscode
+.vscode/
