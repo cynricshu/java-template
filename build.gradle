@@ -11,10 +11,15 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+        classpath("com.palantir:jacoco-coverage:0.4.0")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
+
+apply plugin: "com.palantir.jacoco-full-report"
+apply plugin: "org.sonarqube"
 
 allprojects {
     apply plugin: 'java'
@@ -22,6 +27,7 @@ allprojects {
     apply plugin: 'idea'
     apply plugin: 'io.spring.dependency-management'
     apply from: rootProject.file('gradle/checkcode.gradle')
+    apply plugin: 'jacoco'
 
     group 'com.cynricshu'
 
@@ -40,6 +46,7 @@ allprojects {
 
         testAnnotationProcessor('org.projectlombok:lombok')
         testImplementation("junit:junit")
+        testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.projectlombok:lombok")
     }
@@ -101,6 +108,39 @@ allprojects {
             dependency("org.elasticsearch:elasticsearch:7.2.0")
             dependency("org.elasticsearch.client:elasticsearch-rest-client:7.2.0")
             dependency("org.elasticsearch.client:elasticsearch-rest-high-level-client:7.2.0")
+        }
+    }
+
+    jacoco {
+        toolVersion = "0.8.2"
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled = true
+            csv.enabled = false
+        }
+
+        afterEvaluate {
+            classDirectories = files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [
+                        "**/config/**",
+                        "**/exception/**",
+                        "**/model/**",
+                        "**/type/**",
+                        "**/request/**",
+                        "**/response/**",
+                        "**/message/**",
+                        "**/*Bean.class",
+                        "**/*Constants.class",
+                        "**/*Type.class",
+                        "**/*Request.class",
+                        "**/*Response.class",
+                        "**/*Message.class",
+                        "**/*Example.class",
+                        "**/*Criteria.class"
+                ])
+            })
         }
     }
 }
