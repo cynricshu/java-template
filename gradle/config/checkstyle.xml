@@ -25,7 +25,6 @@
     </module>
 
     <module name="RegexpHeader">
-        <property name="header" value="^// Copyright (\(C\) )?\d{4} Baidu Inc\. All rights reserved\.$\n^$\n"/>
         <property name="fileExtensions" value="java,kt"/>
     </module>
 
