@@ -31,7 +31,7 @@ public class TraceFilterConfig {
 
     @Bean
     public FilterRegistrationBean traceIdFilterRegistrationBean() {
-        traceIdFilter filter = new traceIdFilter();
+        TraceIdFilter filter = new TraceIdFilter();
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(filter);
         List<String> urlPatterns = Arrays.asList(urlPattern.split(";"));
@@ -40,7 +40,7 @@ public class TraceFilterConfig {
     }
 
     @Slf4j
-    private static class traceIdFilter implements Filter {
+    private static class TraceIdFilter implements Filter {
         private ThreadLocal<Long> threadLocalBeginTime = new ThreadLocal<>();
         private ThreadLocal<String> threadLocaltraceId = new ThreadLocal<>();
 
