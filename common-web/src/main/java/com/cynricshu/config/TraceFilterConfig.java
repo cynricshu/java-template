@@ -42,7 +42,7 @@ public class TraceFilterConfig {
     @Slf4j
     private static class TraceIdFilter implements Filter {
         private ThreadLocal<Long> threadLocalBeginTime = new ThreadLocal<>();
-        private ThreadLocal<String> threadLocaltraceId = new ThreadLocal<>();
+        private ThreadLocal<String> threadLocalTraceId = new ThreadLocal<>();
 
         @Override
         public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -63,12 +63,12 @@ public class TraceFilterConfig {
             log.info("[begin] {} {}", request.getMethod(), request.getRequestURI());
 
             threadLocalBeginTime.set(now);
-            threadLocaltraceId.set(traceId);
+            threadLocalTraceId.set(traceId);
         }
 
         private void afterCompletion(HttpServletRequest request, HttpServletResponse response) {
             long requestBeginTime = threadLocalBeginTime.get();
-            String traceId = threadLocaltraceId.get();
+            String traceId = threadLocalTraceId.get();
             response.setHeader(Constants.TRACE_ID, traceId);
 
             long timeUsed = System.currentTimeMillis() - requestBeginTime;
@@ -76,7 +76,7 @@ public class TraceFilterConfig {
                     response.getStatus(), timeUsed);
 
             MDC.remove(Constants.TRACE_ID);
-            threadLocaltraceId.remove();
+            threadLocalTraceId.remove();
             threadLocalBeginTime.remove();
         }
 
