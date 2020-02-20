@@ -30,11 +30,34 @@
         </encoder>
     </appender>
 
-    <logger name="com.baidu.bce.voice" level="WARN"/>
+    <appender name="TRACE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${filename}_trace.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>TRACE</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${filename}_trace.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+            <maxHistory>168</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <charset>UTF-8</charset>
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%msg%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <logger name="com.cynricshu" level="TRACE"/>
     <logger name="org.springframework" level="INFO"/>
 
     <root level="INFO">
         <appender-ref ref="FILE"/>
+        <appender-ref ref="TRACE_FILE"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 
