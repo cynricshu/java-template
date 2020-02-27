@@ -1,5 +1,3 @@
-
-
 package com.cynricshu.service
 
 import com.cynricshu.Application

@@ -1,7 +1,6 @@
+package com.cynricshu.service
 
-
-package com.cynricshu.service;
-
+import com.cynricshu.Application
 import com.cynricshu.model.dataobject.AppDo
 import com.cynricshu.mybatis.mapper.AppMapper
 import org.junit.Test
@@ -17,7 +16,8 @@ import java.time.Instant
  * @author Cynric Shu
  */
 @RunWith(SpringRunner::class)
-@SpringBootTest()
+@SpringBootTest(classes = [Application::class],
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AppMapperTest {
     @Autowired
     lateinit var appMapper: AppMapper
