@@ -7,6 +7,20 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/k8s_console?useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: Admin@123
+    hikari:
+      minimum-idle: 30
+      maximum-pool-size: 300
+      pool-name: hikari
+      idle-timeout: 18000
+      connection-timeout: 180000
+      max-lifetime: 1800000
+    # Switch this on to create the schema, insert data on startup
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    showSql: true
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: false
 
 mybatis:
   configuration:
