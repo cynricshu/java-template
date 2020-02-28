@@ -1,29 +1,27 @@
 package com.cynricshu.client;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
-
-import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.cynricshu.common.Constants;
 import com.cynricshu.config.OkHttpConfig;
 import com.cynricshu.exception.ThirdPartyException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -34,9 +32,9 @@ public class HttpClientFactory {
 
     @Autowired
     @Setter
-    private OkHttpConfig okHttpConfig;
+    private OkHttpConfig initOkHttpConfig;
 
-    private Retrofit createRetrofit(HttpUrl url) {
+    private Retrofit createRetrofit(HttpUrl url, OkHttpConfig okHttpConfig) {
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .connectTimeout(okHttpConfig.getConnectTimeout(), TimeUnit.MILLISECONDS)
                 .readTimeout(okHttpConfig.getReadTimeout(), TimeUnit.MILLISECONDS)
@@ -51,14 +49,14 @@ public class HttpClientFactory {
                 .build();
     }
 
-    public <T> T createRetrofitService(String serverHost, int serverPort, Class<T> service) {
+    public <T> T createRetrofitService(String serverHost, int serverPort, Class<T> service, OkHttpConfig okHttpConfig) {
         HttpUrl url = new HttpUrl.Builder()
                 .scheme("http")
                 .host(serverHost)
                 .port(serverPort)
                 .build();
 
-        Retrofit retrofit = createRetrofit(url);
+        Retrofit retrofit = createRetrofit(url, okHttpConfig);
 
         return retrofit.create(service);
     }
@@ -75,15 +73,18 @@ public class HttpClientFactory {
      */
     @SuppressWarnings("unchecked")
     public <T, U> T createClientProxy(String serverIp, int serverPort, Class<T> clientClass,
-            Class<U> retrofitProxyClass) {
+                                      Class<U> retrofitProxyClass, OkHttpConfig okHttpConfig) {
+        if (okHttpConfig == null) {
+            okHttpConfig = this.initOkHttpConfig;
+        }
 
-        U retrofitService = this.createRetrofitService(serverIp, serverPort, retrofitProxyClass);
+        U retrofitService = this.createRetrofitService(serverIp, serverPort, retrofitProxyClass, okHttpConfig);
 
-        return (T) Proxy.newProxyInstance(clientClass.getClassLoader(), new Class<?>[] {clientClass},
+        return (T) Proxy.newProxyInstance(clientClass.getClassLoader(), new Class<?>[]{clientClass},
                 (proxy, method, args) -> {
                     // If the method is a method from Object then defer to normal invocation.
                     if (method.getDeclaringClass() == Object.class) {
-                        return method.invoke(proxy, args);
+                        return method.invoke(this, args);
                     }
 
                     Method targetMethod = null;
