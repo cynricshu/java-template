@@ -1,0 +1,17 @@
+import com.baidu.acg.feed.common.domain.property.EndpointProperties;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+/**
+ * 2020/8/3 22:30
+ *
+ * @author Cynric Shu
+ */
+@ConfigurationProperties("product.client")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class ProductClientProperties extends EndpointProperties {
+}
